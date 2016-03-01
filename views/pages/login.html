@@ -1,0 +1,27 @@
+<div class="middle-box loginscreen animated fadeInDown">
+    <div class="account-container">
+        <div class="content clearfix">
+            <form name="loginForm" ng-submit="CheckLogin()">
+                <h1>用户登录</h1>
+                <div class="login-fields">
+                    <p>欢迎使用风险管理审核审批系统！</p>
+                    <div class="form-group input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input type="text" name="username" class="form-control" placeholder="用户名" ng-model="UserInfo.UserID" style="text-transform:uppercase;" required autofocus>
+                    </div>
+                    <div class="form-group input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input type="password" name="password" class="form-control" placeholder="密码" ng-model="UserInfo.Password" required>
+                    </div>
+
+                </div> <!-- /login-fields -->
+
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary block full-width m-b" ng-disabled="BtnIng">登录<span
+                            ng-bind="BtnIng"></span></button> <!-- loginForm.$invalid ||   -->
+                </div> <!-- .actions -->
+            </form>
+        </div> <!-- /content -->
+    </div> <!-- /account-container -->
+</div>

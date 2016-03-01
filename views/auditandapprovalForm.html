@@ -1,0 +1,1154 @@
+<div class="row">
+    <div id="myScrollspy" class="bs-docs-sidebar affix side-catalog">
+        <div class="show-hide">
+            <div class="scroll-boder"></div>
+            <div class="side-bar">
+                <em class="circlr start"></em>
+                <em class="circlr end"></em>
+            </div>
+            <ul class="nav bs-docs-sidenav" id="scrollbar">
+                <em class="pointer"></em>
+                <li class="active"><a name="#1" ng-click="goto(1)">个贷申请信息</a></li>
+                <em class="pointer"></em>
+                <li><a name="#2" ng-click="goto(2)">家庭成员信息</a></li>
+                <em class="pointer"></em>
+                <li><a name="#3" ng-click="goto(3)">共同借款人</a></li>
+                <em class="pointer"></em>
+                <li><a name="#4" ng-click="goto(4)">非共同借款人</a></li>
+                <em class="pointer"></em>
+                <li><a name="#5" ng-click="goto(5)">家庭成员劳动力</a></li>
+                <em class="pointer"></em>
+                <li><a name="#6" ng-click="goto(6)">担保人信息</a></li>
+                <em class="pointer"></em>
+                <li><a name="#7" ng-click="goto(7)">核实人信息</a></li>
+                <em class="pointer"></em>
+                <li><a name="#8" ng-click="goto(8)">客户申请信息</a></li>
+                <em class="pointer"></em>
+                <li><a name="#9" ng-click="goto(9)">照片列表</a></li>
+                <em class="pointer"></em>
+                <li><a name="#10" ng-click="goto(10)">贷款历史记录</a></li>
+                <em class="pointer"></em>
+                <li><a name="#11" ng-click="goto(11)">查看电话检查</a></li>
+                <em class="pointer"></em>
+                <li><a name="#12" ng-click="goto(12)">央行征信信息</a></li>
+                <em class="pointer"></em>
+                <li><a name="#13" ng-click="goto(13)">个人信用报告</a></li>
+                <em class="pointer"></em>
+                <li><a name="#14" ng-click="goto(14)">附件管理</a></li>
+                <em class="pointer"></em>
+                <li><a name="#15" ng-click="goto(15)">资产负债信息</a></li>
+                <em class="pointer"></em>
+                <li><a name="#16" ng-click="goto(16)">信贷员意见</a></li>
+                <em class="pointer"></em>
+                <li><a name="#17" ng-click="goto(17)">贷审会决议记录</a></li>
+                <em class="pointer"></em>
+                <li><a name="#18" ng-click="goto(18)">贷款信息获知渠道</a></li>
+            </ul>
+        </div>
+        <div class="bottom-wrap">
+            <a class="toggle-button" href="javascript:void(0);"></a>
+            <a class="gotop-button" href="javascript:void(0);" ng-click="goto(0)"></a>
+        </div>
+    </div>
+</div>
+<div class="row">
+<div class="wrapper-substance col-md-12 " ng-controller="personalApproveandAuditDetailCtrl">
+
+<!--个贷申请基本信息-->
+<div class="ibox" id="1">
+    <div class="ibox-title">
+        <h5>个贷申请基本信息 </h5>
+
+        <div nbox-tools clickName="" isHide="false"></div>
+    </div>
+
+    <div class="ibox-content">
+        <div>
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <td class="listcolor">申请编号：</td>
+                    <td>{{ huge.applyInfo.appId }}</td>
+                    <td class="listcolor">申请表单编号：</td>
+                    <td>{{ huge.applyInfo.appTableId }}</td>
+                    <td class="listcolor">申请日期：</td>
+                    <td>{{ huge.applyInfo.appDate }}</td>
+                    <td class="listcolor">客户评分：</td>
+                    <td> {{ huge.applyInfo.customerScore }}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor" colspan="2">首次申请贷款年月：</td>
+                    <td colspan="2">{{ huge.applyInfo.firstLoanDate == "" ? "无记录" : huge.applyInfo.firstLoanDate }}</td>
+                    <td class="listcolor" colspan="2"> 上次贷款年月：</td>
+                    <td colspan="2"> {{ huge.applyInfo.preLoanDate == "" ? "无记录" : huge.applyInfo.preLoanDate}}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor" colspan="2">上次贷款金额：</td>
+                    <td colspan="2">{{ huge.applyInfo.preLoanAmount }}</td>
+                    <td class="listcolor" colspan="2"> 本次申请轮次：</td>
+                    <td colspan="2"> {{ huge.applyInfo.currentLoanTime }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <h5>处理过程</h5>
+        <table class="table table-bordered">
+            <tr>
+                <td width="10%" class="listcolor">处理时间</td>
+                <td width="8%" class="listcolor">处理阶段</td>
+                <td width="8%" class="listcolor">处理人</td>
+                <td width="15%" class="listcolor">联系电话</td>
+                <td width="8%" class="listcolor">处理结果</td>
+                <td width="8%" class="listcolor">详细结果</td>
+                <td class="listcolor">处理建议</td>
+            </tr>
+            <tr ng-repeat="row in huge.processInfoCollection">
+                <td> {{row.processDate }}</td>
+                <td> {{row.processStep }}</td>
+                <td> {{row.name }}</td>
+                <td> {{row.tel }}</td>
+                <td> {{row.result }}</td>
+                <td> {{row.resultDetail }}</td>
+                <td> {{row.suggestion }}</td>
+            </tr>
+        </table>
+
+        <div>
+            <h5>客户基本信息</h5>
+            <table class="table table-bordered">
+                <tbody>
+                <tr>
+                    <td class="listcolor" width="15%;"> 申请人姓名：</td>
+                    <td> {{huge.applicantBasicInfo.name}}</td>
+                    <td class="listcolor" width="15%;"> 性别：</td>
+                    <td> {{huge.applicantBasicInfo.sex }}</td>
+                    <td class="listcolor" width="15%;"> 年龄：</td>
+                    <td>{{huge.applicantBasicInfo.age }}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor"> 身份证号码：</td>
+                    <td> {{huge.applicantBasicInfo.identification }}</td>
+                    <td class="listcolor"> 教育程度：</td>
+                    <td>{{huge.applicantBasicInfo.education }}</td>
+                    <td class="listcolor"> 婚姻状况：</td>
+                    <td> {{ huge.applicantBasicInfo.maritalStatus }}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor"> 住宅电话：</td>
+                    <td> {{ huge.applicantBasicInfo.homeNumber }}</td>
+                    <td class="listcolor"> 移动电话：</td>
+                    <td> {{ huge.applicantBasicInfo.mobile }}</td>
+                    <td class="listcolor"> 职业：</td>
+                    <td>{{ huge.applicantBasicInfo.occupation }}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor"> 房产证有无：</td>
+                    <td>{{ huge.applicantBasicInfo.hasPremisesPermit == "True" ? "有" : "无" }}</td>
+                    <td class="listcolor"> 房产证号：</td>
+                    <td> {{ huge.applicantBasicInfo.premisesPermitNo }}</td>
+                    <td class="listcolor"> 月收入：</td>
+                    <td> {{ huge.applicantBasicInfo.monthlyIncome }}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor"> 居住状况：</td>
+                    <td> {{ huge.applicantBasicInfo.livingSituation }}</td>
+                    <td class="listcolor"> 户别：</td>
+                    <td> {{ huge.applicantBasicInfo.nodeType }}</td>
+                    <td class="listcolor"> 居民类型：</td>
+                    <td> {{ huge.applicantBasicInfo.residentClusters }}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor"> 户口所在地：</td>
+                    <td colspan="3"> {{ huge.applicantBasicInfo.residentAddress }}</td>
+                    <td class="listcolor"> 客户等级：</td>
+                    <td> {{ huge.applicantBasicInfo.customerLevel}}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor"> 家庭住址1：</td>
+                    <td colspan="3"> {{ huge.applicantBasicInfo.homeAddress1 }}</td>
+                    <td class="listcolor"> 本地居住（年）：</td>
+                    <td> {{ huge.applicantBasicInfo.localResidenceYear }}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor"> 家庭住址2：</td>
+                    <td colspan="3"> {{ huge.applicantBasicInfo.homeAddress2 }}</td>
+                    <td class="listcolor"> 配偶电话：</td>
+                    <td> {{ huge.applicantBasicInfo.spousePhone }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <!--贷款申请信息 and-->
+        <h5>工作信息</h5>
+        <table class="table table-bordered">
+            <tr>
+                <td width="15%" rowspan="2" class="listcolor">1,是否上班：{{ huge.applicantWorkInfo.isWork == "True" ? "是" :
+                    "否" }}
+                </td>
+                <td width="10%" class="listcolor"> 工作单位：</td>
+                <td width="25%"> {{ huge.applicantWorkInfo.workUnit }}</td>
+                <td width="15%" class="listcolor"> 工作职位：</td>
+                <td width="10%"> {{ huge.applicantWorkInfo.occupation }}</td>
+                <td width="10%" class="listcolor"> 单位联系方式：</td>
+                <td>{{ huge.applicantWorkInfo.occupationContact }}</td>
+            </tr>
+            <tr>
+                <td class="listcolor"> 单位地址：</td>
+                <td> {{ huge.applicantWorkInfo.workAddress }}</td>
+                <td class="listcolor"> 于此单位工作年限：</td>
+                <td> {{ huge.applicantWorkInfo.workExperience }}</td>
+                <td class="listcolor"> 工作月收入：</td>
+                <td> {{ huge.applicantWorkInfo.monthlyIncome }}</td>
+            </tr>
+            <tr>
+                <td rowspan="4" class="listcolor">2,是否经营：{{ huge.applicantWorkInfo.isBussiness == "True" ? "是" : "否"
+                    }}
+                </td>
+                <td class="listcolor"> 经营机构名称：</td>
+                <td> {{ huge.applicantWorkInfo.bussinessName }}</td>
+                <td class="listcolor"> 开业时间：</td>
+                <td> {{ huge.applicantWorkInfo.bussinessStartDate }}</td>
+                <td class="listcolor"> 雇员人数：</td>
+                <td> {{ huge.applicantWorkInfo.employeeSize }}</td>
+            </tr>
+            <tr>
+                <td class="listcolor"> 经营范围：</td>
+                <td> {{ huge.applicantWorkInfo.bussinessRange }}</td>
+                <td class="listcolor"> 组织形式：</td>
+                <td colspan="3"> {{ huge.applicantWorkInfo.organization }}</td>
+            </tr>
+            <tr>
+                <td class="listcolor"> 经营场所：</td>
+                <td colspan="3"> {{ huge.applicantWorkInfo.bussinessPlace }}</td>
+                <td class="listcolor"> 营业执照：</td>
+                <td> {{ huge.applicantWorkInfo.businessLicense }}</td>
+            </tr>
+            <tr>
+                <td class="listcolor"> 经营地址：</td>
+                <td colspan="3"> {{ huge.applicantWorkInfo.bussinessAddress }}</td>
+                <td class="listcolor"> 经营月收入：</td>
+                <td> {{ huge.applicantWorkInfo.monthlyBussinessIncome }}</td>
+            </tr>
+        </table>
+
+        <h5>申请人担保信息</h5>
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <td width="50%" class="listcolor"> 是否可提供抵押物：</td>
+                <td> {{ huge.applicantGuaranteeInfo.isProvideGuarantee == "True"? "是" : "否" }} {{
+                    huge.applicantGuaranteeInfo.ProvideGuaranteeInfo }}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+
+</div>
+<!-- 家庭成员（非共同借款人）/共同借款人信息 CoborrowerInfoCollection   -->
+<div class="ibox" id="2">
+    <div class="ibox-title">
+        <h5>家庭成员（非共同借款人）/共同借款人信息 </h5>
+
+        <div nbox-tools clickName="" isHide="false"></div>
+    </div>
+    <div class="ibox-content">
+        <table class="table table-bordered">
+            <tr>
+                <td width="5%" class="listcolor">家庭成员姓名</td>
+                <td width="6%" class="listcolor">与申请人关系</td>
+                <td width="7%" class="listcolor">是否共同借款人</td>
+                <td class="listcolor">年龄</td>
+                <td class="listcolor">性别</td>
+                <td width="15%" class="listcolor">身份证号码</td>
+                <td class="listcolor">劳动人口</td>
+                <td class="listcolor">居住在本县</td>
+                <td class="listcolor">工作单位</td>
+                <td class="listcolor">月收入</td>
+                <td class="listcolor">教育程度</td>
+                <td class="listcolor">移动电话</td>
+                <td class="listcolor">固定电话</td>
+                <td width="8%" class="listcolor">备注</td>
+            </tr>
+            <tr ng-repeat="row in huge.coborrowerInfoCollection ">
+                <td>{{ row.name }}</td>
+                <td>{{ row.relationship }}</td>
+                <td>{{ row.isCoborrow == "True" ? "是" : "否" }}</td>
+                <td>{{ row.age }}</td>
+                <td>{{ row.sex }}</td>
+                <td>{{ row.identification }}</td>
+                <td>{{ row.isLabour == "True" ? "是" : ( row.isLabour == "" ? " " : "否" ) }}</td>
+                <td>{{ row.isLocalResidence == "True" ? "是" : ( row.isLocalResidence == "" ? " " : "否" ) }}</td>
+                <td>{{ row.workUnit }}</td>
+                <td>{{ row.monthlyIncome }}</td>
+                <td>{{ row.education }}</td>
+                <td>{{ row.mobile}}</td>
+                <td>{{ row.telephone }}</td>
+                <td>{{ row.note }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!-- 家庭成员/共同借款人信息 -->
+<div class="ibox" id="3">
+    <div class="ibox-title">
+        <h5>共同借款人工作信息</h5>
+
+        <div nbox-tools clickName="" isHide="true"></div>
+    </div>
+    <div class="ibox-content">
+        <div ng-repeat="item in huge.coborrowerWorkInfoCollection ">
+            <h5> 共同借款人：{{item.name }}</h5>
+            <table class="table table-bordered">
+                <tr>
+                    <td width="15%" rowspan="2" class="listcolor">1,是否上班：{{ item.isWork == "True" ? "是" : "否"}}</td>
+                    <td width="10%" class="listcolor"> 工作单位：</td>
+                    <td width="25%"> {{ item.workUnit }}</td>
+                    <td width="15%" class="listcolor"> 工作职位：</td>
+                    <td width="10%"> {{ item.occupation }}</td>
+                    <td width="10%" class="listcolor"> 单位联系方式：</td>
+                    <td>{{ item.occupationContact }}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor"> 单位地址：</td>
+                    <td> {{ item.workAddress }}</td>
+                    <td class="listcolor"> 于此单位工作年限：</td>
+                    <td> {{ item.workExperience }}</td>
+                    <td class="listcolor"> 工作月收入：</td>
+                    <td> {{ item.monthlyIncome }}</td>
+                </tr>
+                <tr>
+                    <td rowspan="4" class="listcolor">2,是否经营： {{ item.isBussiness == "True" ? "是" : "否" }}</td>
+                    <td class="listcolor"> 经营机构名称：</td>
+                    <td> {{ item.bussinessName }}</td>
+                    <td class="listcolor"> 开业时间：</td>
+                    <td>{{ item.bussinessStartDate }}</td>
+                    <td class="listcolor"> 雇员人数：</td>
+                    <td> {{ item.employeeSize }}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor"> 经营范围：</td>
+                    <td> {{ item.bussinessRange }}</td>
+                    <td class="listcolor"> 组织形式：</td>
+                    <td colspan="3"> {{ item.organization }}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor"> 经营场所：</td>
+                    <td colspan="3"> {{ item.bussinessPlace }}</td>
+                    <td class="listcolor"> 营业执照：</td>
+                    <td> {{ item.businessLicense }}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor"> 经营地址：</td>
+                    <td colspan="3"> {{ item.bussinessAddress }}</td>
+                    <td class="listcolor"> 经营月收入：</td>
+                    <td> {{ item.monthlyBussinessIncome }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<!--  非共同借款人李红的工作信息  -->
+<div class="ibox" id="4">
+    <div class="ibox-title">
+        <h5>非共同借款人工作信息</h5>
+
+        <div nbox-tools clickName="" isHide="true"></div>
+    </div>
+    <div class="ibox-content">
+        <div ng-repeat="item in huge.nonCoborrowerWorkInfoCollection  ">
+            <h5> 非共同借款人：{{item.name }}</h5>
+            <table class="table table-bordered">
+                <tr>
+                    <td width="15%" rowspan="2" class="listcolor">1,是否上班：{{ item.isWork == "True" ? "是" : "否" }}</td>
+                    <td width="10%" class="listcolor"> 工作单位：</td>
+                    <td width="25%"> {{ item.workUnit }}</td>
+                    <td width="15%" class="listcolor"> 工作职位：</td>
+                    <td width="10%"> {{ item.occupation }}</td>
+                    <td width="10%" class="listcolor"> 单位联系方式：</td>
+                    <td>{{ item.occupationContact }}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor"> 单位地址：</td>
+                    <td> {{ item.workAddress }}</td>
+                    <td class="listcolor"> 于此单位工作年限：</td>
+                    <td> {{ item.workExperience }}</td>
+                    <td class="listcolor"> 工作月收入：</td>
+                    <td> {{ item.monthlyIncome }}</td>
+                </tr>
+                <tr>
+                    <td rowspan="4" class="listcolor">2,是否经营： {{ item.isBussiness == "True" ? "是" : "否" }}</td>
+                    <td class="listcolor"> 经营机构名称：</td>
+                    <td> {{ item.bussinessName }}</td>
+                    <td class="listcolor"> 开业时间：</td>
+                    <td>{{ item.bussinessStartDate }}</td>
+                    <td class="listcolor"> 雇员人数：</td>
+                    <td> {{ item.employeeSize }}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor"> 经营范围：</td>
+                    <td> {{ item.bussinessRange }}</td>
+                    <td class="listcolor"> 组织形式：</td>
+                    <td colspan="3"> {{ item.organization }}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor"> 经营场所：</td>
+                    <td colspan="3"> {{ item.bussinessPlace }}</td>
+                    <td class="listcolor"> 营业执照：</td>
+                    <td> {{ item.businessLicense }}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor"> 经营地址：</td>
+                    <td colspan="3"> {{ item.bussinessAddress }}</td>
+                    <td class="listcolor"> 经营月收入：</td>
+                    <td> {{ item.monthlyBussinessIncome }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- 家庭劳动力信息  -->
+<div class="ibox" id="5">
+    <div class="ibox-title">
+        <h5>家庭成员劳动力信息</h5>
+
+        <div nbox-tools clickName="" isHide="true"></div>
+    </div>
+    <div class="ibox-content">
+        <table class="table table-bordered">
+            <tr>
+                <td class="listcolor">家庭人数</td>
+                <td class="listcolor">劳动人数</td>
+                <td class="listcolor">非本县劳动人数</td>
+                <td class="listcolor">供/赡养人数</td>
+                <td class="listcolor">学龄前人数</td>
+                <td class="listcolor">在校学生人数</td>
+                <td class="listcolor">长期病患/残疾人数</td>
+            </tr>
+            <tr>
+                <td> {{huge.famliyLabourInfo.familySize}}</td>
+                <td>{{huge.famliyLabourInfo.labourSize}}</td>
+                <td>{{huge.famliyLabourInfo.nonLocalLabourSize }}</td>
+                <td>{{huge.famliyLabourInfo.baghbanSize }}</td>
+                <td>{{huge.famliyLabourInfo.preschoolSize}}</td>
+                <td> {{huge.famliyLabourInfo.schoolSize}}</td>
+                <td> {{huge.famliyLabourInfo.diseaseSize}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!-- 担保人 相关 GuaranteeInfo -->
+<div class="ibox" id="6">
+    <div class="ibox-title">
+        <h5>担保人信息</h5>
+
+        <div nbox-tools clickName="" isHide="true"></div>
+    </div>
+    <div class="ibox-content">
+        <h5>担保人基本信息 </h5>
+
+        <div ng-repeat="guaranteeInfo in  huge.guaranteeInfoCollection">
+            <table class="table table-bordered">
+                <tr>
+                    <td width="15%" class="listcolor"> 担保人姓名：</td>
+                    <td> {{ guaranteeInfo.name }}</td>
+                    <td class="listcolor"> 性别：</td>
+                    <td> {{ guaranteeInfo.sex }}</td>
+                    <td class="listcolor"> 年龄：</td>
+                    <td> {{ guaranteeInfo.age }}</td>
+                </tr>
+                <tr>
+                    <td width="15%" class="listcolor"> 身份证号码：</td>
+                    <td> {{ guaranteeInfo.identification }}</td>
+                    <td class="listcolor"> 教育程度：</td>
+                    <td> {{ guaranteeInfo.education }}</td>
+                    <td class="listcolor"> 移动电话：</td>
+                    <td> {{ guaranteeInfo.mobile }}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor"> 住宅电话：</td>
+                    <td> {{ guaranteeInfo.homeNumber }}</td>
+                    <td class="listcolor"> 婚姻状况：</td>
+                    <td> {{guaranteeInfo.maritalStatus }}</td>
+                    <td class="listcolor"> 月收入：</td>
+                    <td> {{guaranteeInfo.monthlyIncome }}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor"> 配偶姓名：</td>
+                    <td> {{ guaranteeInfo.spouseName}}</td>
+                    <td class="listcolor">配偶身份证：</td>
+                    <td> {{ guaranteeInfo.spouseIdentification}}</td>
+                    <td class="listcolor"> 配偶移动电话：</td>
+                    <td> {{ guaranteeInfo.spousePhone}}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor"> 与申请人关系：</td>
+                    <td> {{ guaranteeInfo.relationship }}</td>
+                    <td class="listcolor">房产证有无：</td>
+                    <td> {{ guaranteeInfo.hasPremisesPermit == "True" ? "有" : "无"}}</td>
+                    <td class="listcolor">房产证号：</td>
+                    <td> {{ guaranteeInfo.premisesPermitNo}}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor"> 户口所在地：</td>
+                    <td colspan="3"> {{ guaranteeInfo.residentAddress}}</td>
+                    <td> 居民类型</td>
+                    <td> {{ guaranteeInfo.residentClusters }}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor"> 家庭住址：</td>
+                    <td colspan=3> {{ guaranteeInfo.homeAddress }}</td>
+                    <td class="listcolor"> 居住状况：</td>
+                    <td> {{ guaranteeInfo.livingSituation }}</td>
+                </tr>
+            </table>
+            <br/>
+        </div>
+        <!-- GuaranteeWorkInfo -->
+        <h5>担保人工作信息 </h5>
+
+        <div ng-repeat=" item in  huge.guaranteeWorkInfoCollection">
+            <table class="table table-bordered">
+                <tr>
+                    <td width="15%" rowspan="2" class="listcolor">1,是否上班：{{ item.isWork == "True" ? "是" : "否" }}</td>
+                    <td width="10%" class="listcolor"> 工作单位：</td>
+                    <td width="25%"> {{ item.workUnit }}</td>
+                    <td width="15%" class="listcolor"> 工作职位：</td>
+                    <td width="10%"> {{ item.occupation }}</td>
+                    <td width="10%" class="listcolor"> 单位联系方式：</td>
+                    <td>{{ item.occupationContact }}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor"> 单位地址：</td>
+                    <td> {{ item.workAddress }}</td>
+                    <td class="listcolor"> 于此单位工作年限：</td>
+                    <td> {{ item.workExperience }}</td>
+                    <td class="listcolor"> 工作月收入：</td>
+                    <td> {{ item.monthlyIncome }}</td>
+                </tr>
+                <tr>
+                    <td rowspan="4" class="listcolor">2,是否经营： {{ huge.guaranteeWorkInfo.isBussiness == "True" ? "是" :
+                        "否" }}
+                    </td>
+                    <td class="listcolor"> 经营机构名称：</td>
+                    <td> {{ item.bussinessName }}</td>
+                    <td class="listcolor"> 开业时间：</td>
+                    <td>{{ item.bussinessStartDate }}</td>
+                    <td class="listcolor"> 雇员人数：</td>
+                    <td> {{ item.employeeSize }}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor"> 经营范围：</td>
+                    <td> {{ item.bussinessRange }}</td>
+                    <td class="listcolor"> 组织形式：</td>
+                    <td colspan="3"> {{ item.organization }}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor"> 经营场所：</td>
+                    <td colspan="3"> {{ item.bussinessPlace }}</td>
+                    <td class="listcolor"> 营业执照：</td>
+                    <td> {{ item.businessLicense }}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor"> 经营地址：</td>
+                    <td colspan="3"> {{ item.bussinessAddress }}</td>
+                    <td class="listcolor"> 经营月收入：</td>
+                    <td> {{ item.monthlyBussinessIncome }}</td>
+                </tr>
+            </table>
+            <br>
+        </div>
+
+    </div>
+</div>
+<!-- IndirectAuthenticatorInfo -->
+<div class="ibox" id="7">
+    <div class="ibox-title">
+        <h5>核实人信息 </h5>
+
+        <div nbox-tools clickName="" isHide="true"></div>
+    </div>
+    <div class="ibox-content">
+        <!-- 核实人-->
+        <div ng-repeat="indirectAuthenticatorInfo in  huge.indirectAuthenticatorInfoCollection">
+            <table class="table table-bordered">
+                <tr>
+                    <td class="listcolor">核实人姓名：</td>
+                    <td> {{ indirectAuthenticatorInfo.name }}</td>
+                    <td class="listcolor">身份证号</td>
+                    <td>{{ indirectAuthenticatorInfo.identification }}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor">联系电话：</td>
+                    <td>{{ indirectAuthenticatorInfo.phone }}</td>
+                    <td class="listcolor">与申请人关系：</td>
+                    <td> {{ indirectAuthenticatorInfo.relationship }}</td>
+                </tr>
+                <tr>
+                    <td class="listcolor">工作单位：</td>
+                    <td> {{ indirectAuthenticatorInfo.workUnit }}</td>
+                    <td class="listcolor">备注：</td>
+                    <td> {{ indirectAuthenticatorInfo.note }}</td>
+                </tr>
+            </table>
+            <br/>
+        </div>
+
+        <!-- 核实人 end-->
+    </div>
+</div>
+<!--客户申请比对信息 ApplicationInfoCompare -->
+<div class="ibox" id="8">
+    <div class="ibox-title">
+        <h5>客户申请信息 </h5>
+
+        <div nbox-tools clickName="" isHide="true"></div>
+    </div>
+    <div class="ibox-content">
+        <h5>申请信息 </h5>
+        <table class="table table-bordered">
+            <tr>
+                <td class="listcolor" width="15%">贷款产品：</td>
+                <td> {{ huge.applicationInfo.loanProduct }}</td>
+                <td class="listcolor" width="15%">贷款金额(元)：</td>
+                <td>{{ huge.applicationInfo.loanAmount }}</td>
+            </tr>
+            <tr>
+                <td class="listcolor">贷款用途：</td>
+                <td> {{ huge.applicationInfo.loanPurpose }}</td>
+                <td class="listcolor">贷款详细用途：</td>
+                <td> {{ huge.applicationInfo.loanPurposeInfo }}</td>
+            </tr>
+            <tr>
+                <td class="listcolor">客户所在行业：</td>
+                <td> {{ huge.applicationInfo.customerIndustry }}</td>
+                <td class="listcolor">被保险人：</td>
+                <td> {{ huge.applicationInfo.insurant }}</td>
+            </tr>
+            <tr>
+                <td class="listcolor"></td>
+                <td></td>
+                <td class="listcolor">还款方式：</td>
+                <td> {{ huge.applicationInfo.rePayment }}</td>
+            </tr>
+            <tr>
+                <td class="listcolor">还款来源：</td>
+                <td> {{ huge.applicationInfo.rePaymentSource }}</td>
+                <td class="listcolor"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="listcolor">货款详细用途补充说明：</td>
+                <td> {{ huge.applicationInfo.loanPurposeInfoNote }}</td>
+                <td class="listcolor"></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <h5>申请比对信息 </h5>
+        <table class="table table-bordered">
+            <tr>
+                <td class="listcolor" width="20%">贷款产品：</td>
+                <td>当前</td>
+                <td>历史</td>
+            </tr>
+            <tr ng-class="{ true: '', false:'diff'  }[ huge.applicationInfoCompare.amount == huge.applicationInfoCompareHistory.amount]">
+                <td class="listcolor">申请金额变化：</td>
+                <td> {{ huge.applicationInfoCompare.amount }}</td>
+                <td> {{ huge.applicationInfoCompareHistory.amount }}</td>
+            </tr>
+            <tr ng-class="{ true: '', false:'diff'  }[  huge.applicationInfoCompare.amountNote == huge.applicationInfoCompareHistory.amountNote ]">
+                <td class="listcolor">申请金额变化备注：</td>
+                <td> {{ huge.applicationInfoCompare.amountNote }}</td>
+                <td> {{ huge.applicationInfoCompareHistory.amountNote }}</td>
+            </tr>
+            <tr ng-class="{ true: '', false:'diff'  }[ huge.applicationInfoCompare.maritalStatus == huge.applicationInfoCompareHistory.maritalStatus  ]">
+                <td class="listcolor">婚姻状况变化：</td>
+                <td> {{ huge.applicationInfoCompare.maritalStatus }}</td>
+                <td> {{ huge.applicationInfoCompareHistory.maritalStatus }}</td>
+            </tr>
+            <tr ng-class="{ true: '', false:'diff'  }[ huge.applicationInfoCompare.maritalStatusNote == huge.applicationInfoCompareHistory.maritalStatusNote  ]">
+                <td class="listcolor">婚姻状况变化备注：</td>
+                <td> {{ huge.applicationInfoCompare.maritalStatusNote }}</td>
+                <td> {{ huge.applicationInfoCompareHistory.maritalStatusNote }}</td>
+            </tr>
+            <tr ng-class="{ true: '', false:'diff'  }[ huge.applicationInfoCompare.familySize == huge.applicationInfoCompareHistory.familySize  ]">
+                <td class="listcolor">家庭成员变化：</td>
+                <td> {{ huge.applicationInfoCompare.familySize }}</td>
+                <td> {{ huge.applicationInfoCompareHistory.familySize }}</td>
+            </tr>
+            <tr ng-class="{ true: '', false:'diff'  }[ huge.applicationInfoCompare.familySizeNote == huge.applicationInfoCompareHistory.familySizeNote ]">
+                <td class="listcolor">家庭成员变化备注：</td>
+                <td> {{ huge.applicationInfoCompare.familySizeNote }}</td>
+                <td> {{ huge.applicationInfoCompareHistory.familySizeNote }}</td>
+            </tr>
+            <tr ng-class="{ true: '', false:'diff'  }[ huge.applicationInfoCompare.homeAddress == huge.applicationInfoCompareHistory.homeAddress ]">
+                <td class="listcolor">家庭住址变化：</td>
+                <td> {{ huge.applicationInfoCompare.homeAddress }}</td>
+                <td> {{ huge.applicationInfoCompareHistory.homeAddress }}</td>
+            </tr>
+            <tr ng-class="{ true: '', false:'diff'  }[ huge.applicationInfoCompare.homeAddressNote ==  huge.applicationInfoCompareHistory.homeAddressNote]">
+                <td class="listcolor">家庭住址变化备注：</td>
+                <td> {{ huge.applicationInfoCompare.homeAddressNote }}</td>
+                <td> {{ huge.applicationInfoCompareHistory.homeAddressNote }}</td>
+            </tr>
+            <tr ng-class="{ true: '', false:'diff'  }[ huge.applicationInfoCompare.bussinessContent == huge.applicationInfoCompareHistory.bussinessContent ]">
+                <td class="listcolor">经营内容变化：</td>
+                <td> {{ huge.applicationInfoCompare.bussinessContent }}</td>
+                <td> {{ huge.applicationInfoCompareHistory.bussinessContent }}</td>
+            </tr>
+            <tr ng-class="{ true: '', false:'diff'  }[ huge.applicationInfoCompare.bussinessContentNote == huge.applicationInfoCompareHistory.bussinessContentNote]">
+                <td class="listcolor">经营内容变化备注：</td>
+                <td> {{ huge.applicationInfoCompare.bussinessContentNote }}</td>
+                <td> {{ huge.applicationInfoCompareHistory.bussinessContentNote }}</td>
+            </tr>
+            <tr ng-class="{ true: '', false:'diff'  }[ huge.applicationInfoCompare.bussinessAddress == huge.applicationInfoCompareHistory.bussinessAddress]">
+                <td class="listcolor">经营地址变化：</td>
+                <td> {{ huge.applicationInfoCompare.bussinessAddress }}</td>
+                <td> {{ huge.applicationInfoCompareHistory.bussinessAddress }}</td>
+            </tr>
+            <tr ng-class="{ true: '', false:'diff'  }[ huge.applicationInfoCompare.bussinessAddressNote == huge.applicationInfoCompareHistory.bussinessAddressNote]">
+                <td class="listcolor">经营地址变化备注：</td>
+                <td> {{ huge.applicationInfoCompare.bussinessAddressNote }}</td>
+                <td> {{ huge.applicationInfoCompareHistory.bussinessAddressNote }}</td>
+            </tr>
+            <tr ng-class="{ true: '', false:'diff'  }[ huge.applicationInfoCompare.coborrow == huge.applicationInfoCompareHistory.coborrow]">
+                <td class="listcolor">共同借款人变化：</td>
+                <td> {{ huge.applicationInfoCompare.coborrow }}</td>
+                <td> {{ huge.applicationInfoCompareHistory.coborrow }}</td>
+            </tr>
+            <tr ng-class="{ true: '', false:'diff'  }[ huge.applicationInfoCompare.coborrowNote  == huge.applicationInfoCompareHistory.coborrowNote ]">
+                <td class="listcolor">共同借款人变化备注：</td>
+                <td> {{ huge.applicationInfoCompare.coborrowNote }}</td>
+                <td> {{ huge.applicationInfoCompareHistory.coborrowNote }}</td>
+            </tr>
+            <tr ng-class="{ true: '', false:'diff'  }[ huge.applicationInfoCompare.guarantee   == huge.applicationInfoCompareHistory.guarantee  ]">
+                <td class="listcolor">担保人变化：</td>
+                <td> {{ huge.applicationInfoCompare.guarantee }}</td>
+                <td> {{ huge.applicationInfoCompareHistory.guarantee }}</td>
+            </tr>
+            <tr ng-class="{ true: '', false:'diff'  }[ huge.applicationInfoCompare.guaranteeNote  == huge.applicationInfoCompareHistory.guaranteeNote  ]">
+                <td class="listcolor">担保人变化备注：</td>
+                <td> {{ huge.applicationInfoCompare.guaranteeNote }}</td>
+                <td> {{ huge.applicationInfoCompareHistory.guaranteeNote }}</td>
+            </tr>
+            <tr ng-class="{ true: '', false:'diff'  }[ huge.applicationInfoCompare.bussinessStatus  == huge.applicationInfoCompareHistory.bussinessStatus  ]">
+                <td class="listcolor">资产负债变化：</td>
+                <td> {{ huge.applicationInfoCompare.bussinessStatus }}</td>
+                <td> {{ huge.applicationInfoCompareHistory.bussinessStatus }}</td>
+            </tr>
+            <tr ng-class="{ true: '', false:'diff'  }[  huge.applicationInfoCompare.loanPurpose  == huge.applicationInfoCompareHistory.loanPurpose  ]">
+                <td class="listcolor">上次贷款用途落实：</td>
+                <td> {{ huge.applicationInfoCompare.loanPurpose }}</td>
+                <td> {{ huge.applicationInfoCompareHistory.loanPurpose}}</td>
+            </tr>
+
+
+        </table>
+    </div>
+</div>
+<!-- 照片列表 -->
+<div class="ibox" id="9">
+    <div class="ibox-title">
+        <h5>照片列表</h5>
+
+        <div nbox-tools clickName="getimgList" isHide="true"></div>
+    </div>
+    <div class="ibox-content">
+        <!-- 图片列表 -->
+        <div class="row">
+           <div class="col-md-6">
+                <h5><span class="btn btn-w-m btn-primary"> 当前 </span></h5>
+
+                <div class="col-md-4" ng-repeat="item in huge.curPhotoInfoCollections">
+
+                   <div class="file_img">
+                        <a data-gallery="img_cur" href="{{ item.url }}">
+                           <div class="image">
+                                <img ng-hide="item.photoType == 1" ng-src="{{ item.url }}" class="img-responsive"
+                                     alt="image">
+                                <img ng-show="item.photoType == 1" ng-src="{{ item.smartUrl }}" class="img-responsive"
+                                     alt="image">
+                           </div>
+                       </a>
+
+                       <div class="file-name">
+                            <a href="{{ item.url }}">
+                               {{ item.photoName }}
+                           </a>
+                           <span class="maplink" ng-show="item.photoType == 1"
+                                 ng-click="openMod(item.latitude,item.longitude,item.originPhotoName,item.shootingTime)"> <!-- -->
+                               <i class="fa fa-map-marker"></i> 地理位置
+                           </span>
+                       </div>
+                   </div>
+                </div>
+               <!-- 当前 end -->
+           </div>
+           <div class="col-md-6">
+               <h5><span class="btn btn-w-m btn-default"> 历史 </span></h5>
+
+               <div class="col-md-4" ng-repeat="item in huge.hisPhotoInfoCollections">
+                   <div class="file_img">
+                        <a href="{{ item.url }}" data-gallery="img_his">
+                           <div class="image">
+                                <img ng-hide="item.photoType == 1" ng-src="{{ item.url }}" class="img-responsive"
+                                     alt="image">
+                                <img ng-show="item.photoType == 1" ng-src="{{ item.smartUrl }}" class="img-responsive"
+                                     alt="image">
+                           </div>
+                       </a>
+
+                       <div class="file-name">
+                            <a href="{{ item.url }}">
+                               {{ item.photoName }}
+                           </a>
+                           <span class="maplink" ng-show="item.photoType == 1"
+                                 ng-click="openMod(item.latitude,item.longitude,item.originPhotoName,item.shootingTime)"> <!--     -->
+                              <i class="fa fa-map-marker"></i> 地理位置
+                           </span>
+                       </div>
+                   </div>
+               </div>
+           </div>
+        </div>
+        <!-- row -->
+
+
+        <!-- 图片列表 end -->
+    </div>
+</div>
+<!--  贷款历史记录   -->
+<div class="ibox" id="10">
+    <div class="ibox-title">
+        <h5>贷款历史记录</h5>
+
+        <div nbox-tools clickName="" isHide="true"></div>
+    </div>
+    <div class="ibox-content">
+        <table class="table table-bordered">
+            <tr>
+                <td class="listcolor">分支中心</td>
+                <td class="listcolor">中心名称</td>
+                <td class="listcolor">客户姓名</td>
+                <td class="listcolor">贷款金额</td>
+                <td class="listcolor">放款日期</td>
+                <td class="listcolor">贷款状态</td>
+                <td class="listcolor"> 贷款产品</td>
+                <td class="listcolor"> 贷款类型</td>
+                <td class="listcolor"> 小组编号</td>
+                <td class="listcolor"> 申请编号</td>
+                <td class="listcolor"> 是否注销过</td>
+                <td class="listcolor"> 是否提前放款</td>
+            </tr>
+            <tr ng-repeat=" row in huge.loanHistoryCollection">
+                <td> {{ row.subCenter }}</td>
+                <td>{{ row.centerName }}</td>
+                <td>{{ row.customerName }}</td>
+                <td> {{ row.loanAmount }}</td>
+                <td> {{ row.loanDate }}</td>
+                <td> {{ row.loanStatus }}</td>
+                <td> {{ row.loanProduct }}</td>
+                <td> {{ row.loanType }}</td>
+                <td>{{ row.groupNum }}</td>
+                <td>{{ row.applId }}</td>
+                <td> {{ row.isCancel== "True"? "是" : "否" }}</td>
+                <td>{{ row.earlyRepayment== "True"? "是" : "否" }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!-- 通话记录  -->
+<div class="ibox" id="11">
+    <div class="ibox-title">
+        <h5>查看电话检查</h5>
+
+        <div nbox-tools clickName="phonerecordsInit" isHide="true"></div>
+    </div>
+    <div class="ibox-content">
+        <table datatable="ng" class="table table-hover">
+            <thead>
+            <tr>
+                <th>服务号</th>
+                <th>座席电话</th>
+                <th>员工编号</th>
+                <th>小组编号</th>
+                <th>受理编号</th>
+                <th>客户编号</th>
+                <th>客户类型</th>
+                <th>客户姓名</th>
+                <th>拨打时间</th>
+                <th>通话时长</th>
+                <th>客户电话</th>
+                <th width="5%" class="text-center">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in phonerecords.groupPhoneChecks track by $index">
+                <td>{{ item.serviceNum }}</td>
+                <td>{{ item.servicePhone }}</td>
+                <td>{{ item.employeeId }}</td>
+                <td>{{ item.groupId }}</td>
+                <td>{{ item.applyNo }}</td>
+                <td>{{ item.customerId }}</td>
+                <td>{{ item.customerType }}</td>
+                <td>{{ item.customerName }}</td>
+                <td>{{ item.callTime }}</td>
+                <td>{{ item.takeTime }}</td>
+                <td>{{ item.customerPhone }}</td>
+                <td class="text-center">
+                    <a ng-show="item.url" href="{{item.url}}" class="btn btn-white btn-xs">
+                        <i class="icon_palyer"></i> 录音</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!-- 通话记录 分页 -->
+
+
+    </div>
+    <!-- 通话记录 boxcontent  end -->
+</div>
+<!-- 央行征信信息 -->
+<div class="ibox" id="12">
+    <div class="ibox-title">
+        <h5>央行征信信息</h5>
+
+        <div nbox-tools clickName="" isHide="true"></div>
+    </div>
+    <div class="ibox-content">
+        <table class="table table-bordered">
+            <tr>
+                <th class="listcolor"> 姓名</th>
+                <th class="listcolor">是否查询</th>
+                <th class="listcolor">为他人担保金额（征信）</th>
+                <th class="listcolor">查询结论</th>
+            </tr>
+            <tr ng-repeat="row in  huge.creditCheckingInfoCollection">
+                <td> {{ row.name }} <span class="label label-primary"> {{ row.type }}</span></td>
+                <td> {{ row.isQueried == "True" ? "是" : "否" }}</td>
+                <td> {{ row.guaranteeAmountForOthers }}</td>
+                <td>{{ row.queryConclusion}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!-- 征信报告 -->
+<div class="ibox" id="13">
+    <div class="ibox-title">
+        <h5>个人信用报告</h5>
+
+        <div nbox-tools clickName="getCreditreportList" isHide="true"></div>
+    </div>
+    <!-- 报告列表 -->
+    <div class="ibox-content">
+        <table class="table table-hover ">
+            <thead>
+            <tr>
+                <th>身份</th>
+                <th>姓名</th>
+                <th>查询时间</th>
+                <th width="5%" class="text-center">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in creditReports">
+                <td class="project-status">
+                    {{ item.customerRank}}
+                </td>
+                <td class="project-title">
+                    {{ item.customerName }}
+                </td>
+                <td>
+                    <small> {{item.queryDateTime}}</small>
+                </td>
+                <td class="text-center">
+                    <span ng-click="open(item.url)" class="btn btn-white btn-xs">
+                    <i class="fa fa-folder"></i> 查看
+                </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- 报告 end -->
+</div>
+<!--  附件管理   -->
+<div class="ibox" id="14">
+    <div class="ibox-title">
+        <h5>附件管理</h5>
+
+        <div nbox-tools clickName="getappfile" isHide="true"></div>
+    </div>
+    <div class="ibox-content">
+        <table class="table table-bordered">
+            <tr>
+                <td class="listcolor">文件名称</td>
+                <td class="listcolor">新文件</td>
+                <td class="listcolor">上传人</td>
+                <td class="listcolor">是否提交</td>
+                <td class="listcolor">上传时间</td>
+                <td class="listcolor">操作</td>
+            </tr>
+            <tr ng-repeat="item in filelist">
+                <td>{{ item.oldFileName }}</td>
+                <td>{{ item.fileName }}</td>
+                <td>{{ item.userName }}</td>
+                <td> {{ item.isSubmit== 'True' ? "是" : "否" }}</td>
+                <td> {{ item.upLoadTime }}</td>
+                <td><a href="{{ item.url }}"> 下载</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!--资产负债信息-->
+<div class="ibox" id="15">
+    <div class="ibox-title">
+        <h5>资产负债信息</h5>
+
+        <div nbox-tools clickName="" isHide="true"></div>
+    </div>
+    <div class="ibox-content">
+        <table class="table table-bordered">
+            <tr>
+                <td class="listcolor">总资产：</td>
+                <td> {{ huge.assetLiabilityInfo.totalAssets }}</td>
+                <td class="listcolor">总负债：</td>
+                <td> {{ huge.assetLiabilityInfo.totalLiabilities }}</td>
+            </tr>
+            <tr>
+                <td class="listcolor">月收入：</td>
+                <td> {{ huge.assetLiabilityInfo.monthlyIncome }}</td>
+                <td class="listcolor">月可支配收入：</td>
+                <td> {{ huge.assetLiabilityInfo.monthlyDisposableIncome }}</td>
+            </tr>
+            <tr>
+                <td class="listcolor">资产负债率：</td>
+                <td> {{ huge.assetLiabilityInfo.debtAssetRatio * 100 }}%</td>
+                <td class="listcolor">月还款额占月可支配收入比例：</td>
+                <td> {{ huge.assetLiabilityInfo.monthlyRepaymentInDisposableIncome * 100 }}%</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!--信贷员意见 -->
+<div class="ibox" id="16">
+    <div class="ibox-title">
+        <h5>信贷员意见</h5>
+
+        <div nbox-tools clickName="" isHide="true"></div>
+    </div>
+    <div class="ibox-content">
+        <table class="table table-bordered">
+            <tr>
+                <td class="listcolor"> a)发放理由：</td>
+                <td> {{ huge.loanOfficerSuggestion.grantReason }}</td>
+            </tr>
+            <tr>
+                <td class="listcolor">b)风险点：</td>
+                <td> {{ huge.loanOfficerSuggestion.riskPoint }}</td>
+            </tr>
+            <tr>
+                <td class="listcolor">c)拒绝理由：</td>
+                <td> {{ huge.loanOfficerSuggestion.rejectReason }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!--  贷审会决议记录 LoanApproveResolutionCollection  -->
+<div class="ibox" id="17">
+    <div class="ibox-title">
+        <h5>贷审会决议记录 </h5>
+
+        <div nbox-tools clickName="" isHide="true"></div>
+    </div>
+    <div class="ibox-content">
+        <table class="table table-bordered">
+            <tr>
+                <td class="listcolor" width="8%">应用编号</td>
+                <td class="listcolor" width="8%">客户编号</td>
+                <td class="listcolor" width="8%">客户名称</td>
+                <td class="listcolor" width="8%">审批结果</td>
+                <td class="listcolor">备注</td>
+                <td class="listcolor" width="15%">审批时间</td>
+            </tr>
+            <tr ng-repeat=" row in huge.loanApproveResolutionCollection">
+                <td> {{row.appId}}</td>
+                <td>{{row.customerId}}</td>
+                <td>{{row.customerName}}</td>
+                <td>{{row.approveResult}}</td>
+                <td> {{row.note}}</td>
+                <td>{{row.approveDate}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!--贷款信息获知渠道 -->
+<div class="ibox" id="18">
+    <div class="ibox-title">
+        <h5>贷款信息获知渠道</h5>
+
+        <div nbox-tools clickName="" isHide="true"></div>
+    </div>
+    <div class="ibox-content">
+        <table class="table table-bordered">
+            <tr>
+                <td class="listcolor">信息渠道：</td>
+                <td> {{ huge.loanSouceInfo.sourceInfo }}</td>
+            </tr>
+            <tr>
+                <td class="listcolor">备注：</td>
+                <td> {{ huge.loanSouceInfo.note }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</div>
+<!-- audio player-->
+<a class="hide" href="null.aac"> Audio player </a>
+<!-- audio player end -->
+</div>
+<script type="text/javascript">
+    soundManager.onready(function () {
+        // soundManager.createSound() etc. may now be called
+        inlinePlayer = new InlinePlayer();
+    });
+//滚动监听
+    $(document).ready(function () {
+        $(".toggle-button").click(function () {
+            $(".show-hide").toggle();
+            $(".wrapper-substance").toggleClass("no-wrapper-substance ");
+        });
+        $(window).scroll(function () {
+            var top = $(document).scrollTop();      //定义变量，获取滚动条的高度
+            var stop = $("#scrollbar").scrollTop();//获取ul列表滚动条高度
+            $("#scrollbar").scrollTop($(this).scrollTop() / 55);
+
+            var menu = $("#scrollbar");                      //定义变量，抓取#scrollbar
+            var items = $(".wrapper-substance").find(".ibox");    //定义变量，查找.ibox
+            var curId = "";                             //定义变量，当前所在的楼层ibox #id
+            items.each(function () {
+                var m = $(this);                        //定义变量，获取当前类
+                var itemsTop = m.offset().top;        //定义变量，获取当前类的top偏移量
+                if (top > itemsTop -50) {
+                    curId = "#" + m.attr("id");
+                } else {
+                    return false;
+                }
+            });
+            //给相应的楼层设置active,取消其他楼层的active
+            var curLink = menu.find(".active");
+            if (curId && curLink.attr("name") != curId) {
+                curLink.removeClass("active");
+                menu.find("[name=" + curId + "]").addClass("active");
+            }
+        });
+    });
+</script>

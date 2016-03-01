@@ -1,0 +1,112 @@
+<div ng-controller="creditinfobundles">
+ <!--    <div class="row wrapper border-bottom white-bg">
+        <div class="col-md-12">
+            <ol class="breadcrumb ">
+                <li>
+                    <a href="#/index/entry"><i class="fa fa-chevron-left"></i> 返回</a>
+                </li>
+            </ol>
+        </div>
+    </div> -->
+    <div class="wrapper wrapper-content animated fadeIn" >
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>流程状态</h5>
+                        </div>
+                        <div class="ibox-content">
+
+                            <div class="form-horizontal">
+                                <div class="form-group " style="margin-bottom:0;">
+                                  <div class="col-xs-12 col-sm-7">
+                                          <div class="input-group">
+                                            <input class="form-control" size="16" type="text" value="输入订单号" >
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-search"></span>
+                                                搜索
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-5">
+                                        <div class="btn-group" style="float:right"> 
+                                            <button class="btn" ng-class="{true: 'btn-primary', false: 'btn-white'}[template.active == 'timeline']" type="button" ng-click="viewChange.timeline();">流程视图</button>
+                                            <button class="btn" ng-class="{true: 'btn-primary', false: 'btn-white'}[template.active == 'list']" type="button" ng-click="viewChange.list();">列表视图</button> 
+                                        </div>
+                                         <!-- <label class="control-label col-md-4">业务日期：</label>
+                                        <div class="input-group date form_date col-md-7">
+                                            <input class="form-control" size="16" type="text" value="" ng-model="currentDate" ng-change="dateChange()">
+                                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                        </div>-->
+                                    </div> 
+                                </div>
+                            </div> 
+ 
+                        </div>
+                        <div class="ibox" style="margin-top:15px;">
+                            <div ng-include="template.url"> 
+                            </div>
+                        </div>
+
+                
+                    </div>
+                </div>
+            </div>
+
+
+    </div>
+   <sliderbox></sliderbox>
+ </div>
+
+ <script type="text/javascript">
+    // 日期控件
+    $('.form_date').datetimepicker({
+        language: "zh-CN",
+        format: "yyyy-mm-dd",
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+    // 报表excel
+    (function(){
+        var formatStr = function (str) {
+            str = str.replace(/[\r\n]/g,""); //去换行符
+            str = str.replace(/[ ]/g,""); //去空格
+            return  str;
+        }
+        $("#toExcel").click(function(){
+            var report_arr = [];
+            var $report_table = $("#report_table");
+            var rows = $report_table.find("tr");
+            report_arr.push("\r\n");
+            rows.each(function () {
+                var th =  $(this).find("th");
+                var cells =  $(this).find("td");
+                if(th.length > 0) {
+                    th.each(function () {
+                        var txt = formatStr($(this).text());
+
+                        report_arr.push(txt);
+                    })
+                } else {
+                    cells.each(function () {
+                        var txt = formatStr($(this).text());
+                        report_arr.push(txt);
+                    })
+                }
+                report_arr.push("\r\n");
+            });
+            var  report_data  = report_arr.toString();
+
+            var BB = self.Blob;
+
+            var optionText =  $("#step")[0].options[$("#step")[0].selectedIndex].text;
+            saveAs(new BB([ "\ufeff" + report_data ] ,{type: "text/plain;charset=utf8"}),  optionText+'KPI.csv');//\ufeff防止utf8 bom防止中文乱码
+        });
+    })();
+
+</script>

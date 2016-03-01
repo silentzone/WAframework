@@ -1,0 +1,241 @@
+<div class="row wrapper border-bottom white-bg">
+    <div class="col-md-12">
+        <ol class="breadcrumb ">
+            <li>
+                <a href="#/index/entry"><i class="fa fa-chevron-left"></i> 返回</a>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeIn" ng-controller="riskreportCtrl">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>风控KPI表格</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="form-horizontal">
+                        <div class="form-group ">
+                            <div class="col-md-3">
+                                <label class="control-label col-md-5">开始时间：</label>
+                                <div class="input-group date form_date col-md-7">
+                                    <input class="form-control" size="16" type="text" value="" ng-model="startDate">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label col-md-5">结束时间：</label>
+                                <div class="input-group date form_date col-md-7" >
+                                    <input class="form-control" size="16" type="text" value="" ng-model="endDate">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <select id="step" name="step"  ng-model="step" class="form-control" ng-options="item.value as item.label  for item in  steps"></select>
+                            </div>
+                            <span class="btn btn-primary" ng-click="query()"> 查询 </span>
+
+                            <span class="btn" id="toExcel"> 导出excel </span>
+                        </div>
+                    </div>
+
+                    <table  class="table table-hover table-bordered repeat_tbody">
+                        <thead>
+                        <tr>
+                            <th class="sorting_desc" ng-click="sortTable('operator')">
+                                审核人员 <i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["operator"]]'></i>
+                            </th>
+                            <th class="sorting_desc" ng-click="sortTable('riskType')">
+                                类型    <i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["riskType"]]'></i>
+                            </th>
+                            <th class="sorting_desc" ng-click="sortTable('dealNum')">
+                                审核件数  <i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["dealNum"]]'></i>
+                            </th>
+                            <th class="sorting_desc" ng-click="sortTable('supplCount')">
+                                驳回数量<i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["supplCount"]]'></i>
+                            </th>
+                            <th class="sorting_desc" ng-click="sortTable('supplePercent')">
+                                驳回率 <i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["supplePercent"]]'></i>
+                            </th>
+                            <th class="sorting_desc" ng-click="sortTable('rejectCount')">
+                                否决件数<i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["rejectCount"]]'></i>
+                            </th>
+                            <th class="sorting_desc" ng-click="sortTable('rejectPercent')">
+                                否决率  <i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["rejectPercent"]]'></i>
+                            </th>
+                            <th class="sorting_desc" ng-click="sortTable('directlyPercent')">
+                                直接通过率 <i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["directlyPercent"]]'></i>
+                            </th>
+                            <th class="sorting_desc" >
+                                发现操作风险件数
+                            </th>
+                            <th width="8%" class="sorting_desc" ng-click="sortTable('dealTime')">
+                                件均实际工作时长 (分) <i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["dealTime"]]'></i>
+                            </th>
+                            <!--<th class="sorting_desc" ng-click="sortTable('responseTime ')">-->
+                                <!--首次件均处理时间 (分)<i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["responseTime"]]'></i>-->
+                            <!--</th>-->
+                            <th  width="8%" class="sorting_desc" ng-click="sortTable('delayTime ')">
+                                首次件均响应时间 (分) <i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["delayTime"]]'></i>
+                            </th>
+                            <th> 暂停时间(分)</th>
+                            <th>抽查件数</th>
+                            <th>不合格</th>
+                            <th  class="sorting_desc" ng-click="sortTable('sysDealTime ')">
+                                件均系统停留时间 (分)<i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["sysDealTime"]]'></i>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody  ng-repeat=" item in testlist">
+                            <tr>
+                                <td style="vertical-align: middle" rowspan="{{item.length + 1}}" >  {{ item[0].operator  }}</td>
+                                <tr ng-repeat="i in item track by $index ">
+                                    <td> {{ i.riskType == '0' ? '小组' : '个贷'   }} </td>
+                                    <td> {{ i.dealNum   }} </td>
+                                    <td> {{ i.supplCount }} </td>
+                                    <td> {{ i.supplePercent  }}  </td>
+                                    <td> {{ i.rejectCount   }} </td>
+                                    <td> {{ i.rejectPercent }} </td>
+                                    <td> {{ i.directlyPercent   }}  </td>
+                                    <td> {{ parseInt(i.rejectCount) +  parseInt(i.supplCount)  }} </td>
+                                    <td> {{ i.dealTime }}   </td>
+                                    <!--<td> {{ i.responseTime  }} </td>-->
+                                    <td> {{ i.delayTime  }}  </td>
+                                    <td> {{ i.suspendTime  }}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td> {{ i.sysDealTime  }} </td>
+                                </tr>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+
+                    <!-- excel 版本不知道如何导出 合并单元格的文档 -->
+                    <table id="report_table" class="table table-hover table-bordered" style="display:none;"  >
+                        <tr>
+                            <th class="sorting_desc" ng-click="sortTable('operator')">
+                                审核人员 <i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["operator"]]'></i>
+                            </th>
+                            <th  class="sorting_desc" ng-click="sortTable('riskType')">
+                                类型    <i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["riskType"]]'></i>
+                            </th>
+                            <th  class="sorting_desc" ng-click="sortTable('dealNum')">
+                                审核件数  <i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["dealNum"]]'></i>
+                            </th>
+                            <th  class="sorting_desc" ng-click="sortTable('supplCount')">
+                                驳回数量<i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["supplCount"]]'></i>
+                            </th>
+                            <th  class="sorting_desc" ng-click="sortTable('supplePercent')">
+                                驳回率 <i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["supplePercent"]]'></i>
+                            </th>
+                            <th  class="sorting_desc" ng-click="sortTable('rejectCount')">
+                                否决件数<i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["rejectCount"]]'></i>
+                            </th>
+                            <th class="sorting_desc" ng-click="sortTable('rejectPercent')">
+                                否决率  <i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["rejectPercent"]]'></i>
+                            </th>
+                            <th class="sorting_desc" ng-click="sortTable('directlyPercent')">
+                                直接通过率 <i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["directlyPercent"]]'></i>
+                            </th>
+                            <th class="sorting_desc" >
+                                发现操作风险件数
+                            </th>
+                            <th class="sorting_desc" ng-click="sortTable('dealTime')">
+                                件均实际工作时长 (分) <i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["dealTime"]]'></i>
+                            </th>
+                            <!--<th class="sorting_desc" ng-click="sortTable('responseTime ')">-->
+                                <!--首次件均处理时间 (分)<i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["responseTime"]]'></i>-->
+                            <!--</th>-->
+                            <th class="sorting_desc" ng-click="sortTable('delayTime ')">
+                                首次件均响应时间 (分) <i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["delayTime"]]'></i>
+                            </th>
+                            <th> 暂停时间(分)</th>
+                            <th>抽查件数</th>
+                            <th>不合格</th>
+                            <th  class="sorting_desc" ng-click="sortTable('sysDealTime ')">
+                                件均系统停留时间 (分)<i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["sysDealTime"]]'></i>
+                            </th>
+                        </tr>
+                        <tr ng-repeat="item in totalCollection " >
+                            <td> {{ item.operator  }}</td>
+                            <td> {{ item.riskType == '0' ? '小组' : '个贷'   }} </td>
+                            <td> {{ item.dealNum   }} </td>
+                            <td> {{ item.supplCount     }}  </td>
+                            <td> {{ item.supplePercent  }}  </td>
+                            <td> {{ item.rejectCount   }} </td>
+                            <td> {{ item.rejectPercent }}  </td>
+                            <td> {{ item.directlyPercent   }}  </td>
+                            <td>  {{ parseInt(item.rejectCount) +  parseInt(item.supplCount)  }} </td>
+                            <td> {{ item.dealTime }}   </td>
+                            <!-- <td> {{ item.responseTime  }}</td>-->
+                            <td> {{ item.delayTime  }}  </td>
+                            <td> {{ item.suspendTime  }}</td>
+                            <td></td>
+                            <td></td>
+                            <td> {{ item.sysDealTime  }} </td>
+                        </tr>
+                        </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<script type="text/javascript">
+    // 日期控件
+    $('.form_date').datetimepicker({
+        language: "zh-CN",
+        format: "yyyy-mm-dd",
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+    // 报表excel
+    (function(){
+        var formatStr = function (str) {
+            str = str.replace(/[\r\n]/g,""); //去换行符
+            str = str.replace(/[ ]/g,""); //去空格
+            return  str;
+        }
+        $("#toExcel").click(function(){
+            var report_arr = [];
+            var $report_table = $("#report_table");
+            var rows = $report_table.find("tr");
+            report_arr.push("\r\n");
+            rows.each(function () {
+                var th =  $(this).find("th");
+                var cells =  $(this).find("td");
+                if(th.length > 0) {
+                    th.each(function () {
+                        var txt = formatStr($(this).text());
+
+                        report_arr.push(txt);
+                    })
+                } else {
+                    cells.each(function () {
+                        var txt = formatStr($(this).text());
+                        report_arr.push(txt);
+                    })
+                }
+                report_arr.push("\r\n");
+            });
+            var  report_data  = report_arr.toString();
+
+            var BB = self.Blob;
+
+            var optionText =  $("#step")[0].options[$("#step")[0].selectedIndex].text;
+            saveAs(new BB([ "\ufeff" + report_data ] ,{type: "text/plain;charset=utf8"}),  optionText+'KPI.csv');//\ufeff防止utf8 bom防止中文乱码
+        });
+    })();
+
+</script>

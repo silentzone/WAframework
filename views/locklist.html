@@ -1,0 +1,67 @@
+<div class="row wrapper border-bottom white-bg">
+    <div class="col-md-12">
+        <ol class="breadcrumb ">
+            <li>
+                <a href="#/index/entry"><i class="fa fa-chevron-left"></i> 返回</a>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeIn" ng-controller="lockListCtrl" >
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>锁定列表</h5>
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-hover" >
+                        <thead>
+                        <tr>
+                            <th class="sorting_desc" >
+                                申请ID
+                            </th>
+                            <th class="sorting_desc" >
+                                申请单类型
+                            </th>
+                            <th class="sorting_desc" >
+                                是否挂起
+                            </th>
+                            <th class="sorting_desc" >
+                                是否锁定
+                            </th>
+                            <th class="sorting_desc" >
+                                锁定时间
+                            </th>
+                            <th class="sorting_desc" >
+                                锁定人
+                            </th>
+                            <th class="sorting_desc text-center" >
+                                操作
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in locklist  ">
+                            <td> {{ item.applID }}</td>
+                            <td>{{ item.businessType }}</td>
+                            <td>{{ item.suspendFlag  == "1" ?"是":"否" }}</td>
+                            <td>{{ item.lockFlag == "1" ?"是":"否" }}</td>
+                            <td>{{ item.lockTime }}</td>
+                            <td>{{ item.lockUserName}}</td>
+
+                            <td class="text-center">
+                                <a ng-click="unLock(item.reviewFormId)" title="审批" class="btn btn-white btn-xs no-margins" >
+                                    <i class="fa fa-check"></i> 解锁 </a>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

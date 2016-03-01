@@ -1,0 +1,117 @@
+<div class="right-approve" id="right-approve" ng-controller="ApproveFormCtrl">
+    <button class="right-approve-activator" id="right-approve-activator" title="检查项"><i class="fa fa-clipboard"></i>
+    </button>
+
+    <div class="right-approve-themes help-block">
+        <div class="modal-header">
+            <span class="pull-right" ng-model="maxStrlenght">备注输入限制100个字符</span>
+            <h3 class="modal-title text-left pull-left"> {{ group.title }}(小组)</h3>
+            <span class="pull-right" style="margin-right: 214px;"> <input icheck type="checkbox" ng-model="chkboxSelectAll" ng-change="selectAll()" /> 全选 </span>
+            <div class="clearfix"></div>
+        </div>
+
+
+        <div class="wrap_box modal-body">
+            <form name="approveForm">
+                <div class="row" ng-repeat="rows in ApproveFormData.grpReviewInfo.riskReviewCategory">
+                    <h3 class="col-md-12 font-bold no-margins text-left"><span
+                            class="label label-primary">{{$index+1}}</span> {{rows.categoryDisplayName}}</h3>
+                    <ul class="unstyled" ng-repeat="row in rows.reviewItemCategoryList">
+                        <li>
+                            <div class="col-md-12 form-group margin_bottom_5 text-right">
+                                <h4 class="col-md-3 control-label">{{row.itemDisplayName}}</h4>
+
+                                <div class="col-md-1">
+                                    <input icheck type="checkbox" ng-model="row.isMeetRequired" required>
+                                </div>
+                                <h4 class="col-md-2 control-label">备注</h4>
+
+                                <div class="col-md-6">
+                                    <!--<textarea class="form-control" rows="1" ng-model="row.remark" ng-maxlength="100"></textarea>-->
+                                    <select chosen multiple data-model="itemreasons" ng-model="row.remark" class="chosen-select" data-placeholder="输入决议编码"  style="width:300px;">
+                                        <option ng-repeat=" item in itemreasons"> {{ item.itemCode }} </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                </form>
+                <div class="row">
+                    <h3 class="col-md-12 font-bold no-margins text-left"><span class="label label-primary">{{ApproveFormData.grpReviewInfo.riskReviewCategory.length+1}}</span> 审核决议
+                    </h3>
+                    <ul class="unstyled">
+                        <li>
+                            <div class="col-md-12 form-group margin_bottom_5 text-right">
+                                <h4 class="col-md-3 control-label">决议内容</h4>
+
+                                <div class="col-md-9">
+                                    <textarea type="text" rows="1" class="form-control"
+                                              ng-model="ApproveFormData.grpReviewInfo.resultContent" ng-maxlength="800"
+                                              required></textarea>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="col-md-5 text-left no-padding">
+                    <div class="col-md-3 text-left no-padding">
+                        <button type="button" class="btn btn-white btn-sm" title="暂停"
+                                ng-click="ApproveSubmit('suspend','暂停')"
+                                ng-disabled="!ApproveFormData.grpReviewInfo.remark" ng-if="!ApproveFormData.grpReviewInfo.suspendFlag">
+                            <i class="fa fa-pause"></i> 暂停
+                        </button>
+                        <button type="button" class="btn btn-white btn-sm" title="恢复" ng-click="ApproveSubmit('release','恢复')" ng-if="ApproveFormData.grpReviewInfo.suspendFlag"><i
+                                class="fa fa-play"></i> 恢复
+                        </button>
+                    </div>
+                    <div class="col-md-9 text-center no-padding">
+                        <textarea name="suspendText" ng-model="ApproveFormData.grpReviewInfo.remark"
+                                  class="form-control"
+                                  rows="1"
+                                  placeholder="请输入暂停原因"
+                                  ng-maxlength="100"
+                                  ng-disabled="ApproveFormData.grpReviewInfo.suspendFlag"></textarea>
+                    </div>
+
+                </div>
+                <div class="col-md-7 no-padding">
+                    <button type="button" class="btn btn-white btn-sm" title="解锁" ng-click="ApproveSubmit('unlock')" ng-disabled="ApproveFormData.grpReviewInfo.suspendFlag"><i
+                            class="fa fa-unlock"></i> 解锁
+                    </button>
+                    <button type="button" class="btn btn-warning btn-sm" title="驳回"
+                            ng-click="ApproveSubmit('supplement','驳回')"
+                            ng-disabled="ApproveFormData.grpReviewInfo.suspendFlag || !ApproveFormData.grpReviewInfo.resultContent"><i class="fa fa-pencil"></i> 驳回
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm" title="拒绝" ng-click="ApproveSubmit('reject','拒绝')"
+                            ng-disabled="ApproveFormData.grpReviewInfo.suspendFlag || !ApproveFormData.grpReviewInfo.resultContent"><i
+                            class="fa fa-times"></i> 拒绝
+                    </button>
+                    <button type="submit" class="btn btn-sm btn-primary" title="通过" ng-click="ApproveSubmit('approve','通过')"
+                            ng-disabled="approveForm.$invalid || ApproveFormData.grpReviewInfo.suspendFlag">
+                        <i class="fa fa-check"></i> 通过
+                    </button>
+                </div>
+            </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        var $html = $('html'),
+                $demo_panel = $('#right-approve'),
+                $themeSwitchers = $('.right-approve-themes li');
+        $('#right-approve-activator').on('click', function (e) {
+            e.preventDefault();
+            $demo_panel.toggleClass('active');
+        });
+        $themeSwitchers.on('click', function () {
+            var $this = $(this);
+
+            $themeSwitchers.filter('.active').removeClass('active');
+            $this.toggleClass('active');
+        });
+    });
+</script>

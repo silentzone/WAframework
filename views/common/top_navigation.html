@@ -1,0 +1,24 @@
+<div class="row border-bottom white-bg" id="0">
+    <nav class="navbar navbar-static-top" role="navigation">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse"
+                    class="navbar-toggle collapsed" type="button">
+                <i class="fa fa-reorder"></i>
+            </button>
+            <a href="#" class="navbar-brand">CFPAMF-MLP</a>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar">
+            <div class="pull-left inline" style="line-height: 50px;padding-left:10px;" ng-if="IsLogOutBtn">
+            <button ng-if="refreshBtn" type="button" ng-click="startRefresh()" class="btn btn-white btn-sm"><i class="fa fa-play"></i> 刷新</button><button ng-if="!refreshBtn" type="button" ng-click="stopRefresh()" class="btn btn-white btn-sm"><i class="fa fa-stop"></i> 停止</button> <span ng-if="!refreshBtn">{{refreshTime}}秒</span>
+            </div>
+            <ul class="nav navbar-top-links navbar-right">
+                <li ng-if="IsLogOutBtn">
+                    <i class="fa fa-user"></i> {{main.employeeName}}
+                </li>
+                <li ng-if="IsLogOutBtn">
+                    <a href="" ng-click="LogOut()"><i class="fa fa-sign-out"></i> 退出</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>

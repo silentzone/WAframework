@@ -1,0 +1,68 @@
+<div class="row animated fadeIn">
+    <!--<div class="col-md-3">-->
+    <!--<div ng-if="main.canGroupReview" class="widget navy-bg p-lg text-center entry_link">-->
+    <!--<a href="#/index/grouplist">-->
+    <!--<div class="m-b-md">-->
+    <!--<i class="fa fa-group fa-3x"></i>-->
+    <!--<h3 class="font-bold no-margins">-->
+    <!--小组贷款审核入口(列表)-->
+    <!--</h3>-->
+    <!--<small></small>-->
+    <!--</div>-->
+    <!--</a>-->
+    <!--</div>-->
+    <!--</div>-->
+    <a href="#/index/locklist">
+        <div class="col-md-3" ng-controller="lockListCtrl">
+            <div ng-if="main.restriction.canUnlockOthers" class="widget navy-bg p-lg text-center entry_link">
+                <div class="">
+                    <i class="fa fa-unlock-alt fa-3x"></i>
+                    <h3 class="m-xs">锁定列表</h3>
+                    <h2 class="font-bold"><span ng-if="locklist.length">{{locklist.length}}</span><span ng-if="!locklist.length">0</span></h2>
+                </div>
+            </div>
+        </div>
+    </a>
+    <a href="#/index/personalapprovallist">
+        <div class="col-md-3" ng-controller="personalApprovalListCtrl">
+            <div ng-if="main.restriction.canIndiApprove" class="widget lazur-bg p-lg text-center entry_link">
+                <div class="">
+                    <i class="fa fa-check-square-o fa-3x"></i>
+
+                    <h3 class="m-xs">个贷审批</h3>
+                    <h2 class="font-bold"><span ng-if="totalCount">{{totalCollection.length}}</span><span ng-if="!totalCollection.length">0</span></h2>
+                </div>
+            </div>
+        </div>
+    </a>
+    <a href="#/index/personalauditlist">
+        <div class="col-md-3" ng-controller="personalAuditListCtrl">
+            <div ng-if="main.restriction.canIndiReview" class="widget yellow-bg p-lg text-center entry_link">
+
+                <div class="" ng-controller="GroupLendingCtrl">
+                    <i class="fa fa-shield fa-3x"></i>
+                    <h3 class="m-xs">风险审核</h3>
+                    <h2 class="font-bold"><span ng-if="totalCount">{{totalCollection.length}}</span><span ng-if="!totalCollection.length">0</span>/<span ng-if="GroupListData.length">{{GroupListData.length}}</span><span ng-if="!GroupListData.length">0</span></h2>
+                </div>
+            </div>
+        </div>
+    </a>
+    <a href="#/index/riskreport">
+        <div class="col-md-3" ng-controller="riskreportCtrl">
+            <div ng-if="main.restriction.canRiskKPI" class="widget blue-bg p-lg text-center entry_link">
+
+                <div class="">
+                    <i class="fa fa-star-half-full fa-3x"></i>
+
+                    <h3 class="m-xs">
+                        审核工作考核
+                    </h3>
+                    <h2 class="font-bold"><span ng-if="totalCollection.length">{{totalCollection.length}}</span><span ng-if="!totalCollection.length">0</span></h2>
+                </div>
+
+            </div>
+        </div>
+    </a>
+</div>
+
+

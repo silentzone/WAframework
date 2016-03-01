@@ -1,0 +1,59 @@
+<div class="ibox-content">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th class="sorting_desc" ng-click="sortTable('messageCode')">
+                报文生成编号
+                <i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["messageCode"]]'></i>
+            </th>
+            <th class="sorting_desc" ng-click="sortTable('businessDate')">业务日期
+                <i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["businessDate"]]'></i>
+            </th>
+              <!--  <th class="sorting_desc" ng-click="sortTable('messageStatus')">报文类型
+                <i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["branchID"]]'></i>
+            </th> -->
+            <th class="sorting_desc" ng-click="sortTable('reportingDate')">生成日期
+                <i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["reportingDate"]]'></i>
+            </th>
+            <th class="sorting_desc" ng-click="sortTable('tradesCount')">报文记录数
+                <i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["tradesCount"]]'></i>
+            </th>
+            <th class="sorting_desc" ng-click="sortTable('messageStatus')">报送标识
+                <i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["messageStatus"]]'></i>
+            </th>
+            <th class="sorting_desc" ng-click="sortTable('reportingDate')">报送时间
+                <i class="fa" ng-class='{true: "fa-sort-down" , false:"fa-sort-up", null: "fa-sort" }[sortItems["reportingDate"]]'></i>
+            </th>
+            <th class="sorting_desc">报送人
+            </th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in totalCollection track by $index" ng-class="{true: 'active', false: 'inactive'}[item.id == currentRow.id]" ng-click="rowClick(item);">
+
+            <td>{{ item.messageCode }}</td>
+            <td>{{ item.businessDate | limitTo:10 }}   </td>
+            <td>{{ item.messageStatus == "3" ? item.reportingDate : '' | limitTo:10  }}</td>
+            <td>{{ item.tradesCount }}</td>
+            <td>{{ item.messageStatus }}</td>
+            <td>{{ item.reportingDate | limitTo:10 }}</td>
+            <td> admin </td> 
+        </tr>
+
+        </tbody>
+    </table>
+     <div class="row">
+                            <!--     <div class="col-md-6">
+                                    显示 <select data-ng-model="numPerPage"
+                                               data-ng-options="num for num in numPerPageOpt"
+                                               data-ng-change="onNumPerPageChange()">
+                                </select> 条
+                                    <span>总条数: {{totalCount}}</span>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <pagination  ng-change="select()" total-items="totalCount" ng-model="currentPage" max-size="5" class="pagination-sm" boundary-links="true" rotate="false" items-per-page="numPerPage" ></pagination>
+                                </div> -->
+     </div> 
+
+ </div>

@@ -1,0 +1,438 @@
+<div class="row wrapper border-bottom white-bg">
+    <div class="col-md-12">
+        <ol class="breadcrumb ">
+            <li>
+                <a href="#/index/personalauditlist"><i class="fa fa-chevron-left"></i> 返回</a>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper-content animated fadeIn" ng-controller="ViewLoaninfoCtrl">
+    <div class="ibox">
+        <div class="ibox-title">
+            <h5>查看小组贷款人员信息</h5>
+            <div nbox-tools clickName="" isHide="false"></div>
+        </div>
+        <div class="ibox-content">
+            <div>
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <td class="listcolor">小组编号：</td>
+                        <td>{{CreditClerkInfo.groupID}}</td>
+                        <td class="listcolor">小组状态：</td>
+                        <td>{{CreditClerkInfo.groupStatus}}</td>
+                        <td class="listcolor">信贷员：</td>
+                        <td>{{CreditClerkInfo.groupLoaner}}</td>
+                        <td class="listcolor">所属中心：</td>
+                        <td>{{CreditClerkInfo.groupCenterName}}</td>
+                    </tr>
+                    <tr>
+                        <td class="listcolor">申请总额：</td>
+                        <td>{{CreditClerkInfo.loanAmt}}</td>
+                        <td class="listcolor">放款方式：</td>
+                        <td>{{CreditClerkInfo.loanMethod}}</td>
+                        <td class="listcolor">还款方式：</td>
+                        <td>{{CreditClerkInfo.returnMethod}}</td>
+                        <td colspan="2"></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <ul class="nav nav-tabs pull-left" ng-init="vm.activeTab=1"
+                    ng-repeat="info in CreditClerkInfo.customerCollection">
+                    <li ng-class="{active:info.customerID==firstCustomerId }">
+                        <a href="javascript:;" ng-click="getMemberInfo(info.customerID)">{{info.customerName}}</a>
+                    </li>
+                </ul>
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <td class="listcolor">客户编号：</td>
+                        <td>{{PersonalinfoList.customerId}}</td>
+                        <td class="listcolor">客户姓名：</td>
+                        <td colspan="2">{{PersonalinfoList.customerName}}</td>
+                        <td rowspan="7" align="left" valign="middle" class="col-md-1"><img
+                                src="{{ PersonalinfoList.imgUrl }}" style="width:240px;"
+                                class="img-rounded"></td>
+                    </tr>
+                    <tr>
+                        <td class="listcolor">民族：</td>
+                        <td>{{PersonalinfoList.ethnic}}</td>
+                        <td class="listcolor">性别：</td>
+                        <td colspan="2">{{PersonalinfoList.gender}}</td>
+                    </tr>
+                    <tr>
+                        <td class="listcolor">身份证：</td>
+                        <td class="text-danger">{{PersonalinfoList.idCardNO}}</td>
+                        <td class="listcolor">出生年月：</td>
+                        <td colspan="2">{{PersonalinfoList.birthDay}}</td>
+                    </tr>
+                    <tr>
+                        <td class="listcolor">文化程度：</td>
+                        <td>{{PersonalinfoList.educateDegree}}</td>
+                        <td class="listcolor">婚姻状况：</td>
+                        <td colspan="2">{{PersonalinfoList.marriage}}</td>
+                    </tr>
+                    <tr>
+                        <td class="listcolor">家庭人数：</td>
+                        <td>{{PersonalinfoList.familyNum}}</td>
+                        <td class="listcolor">劳动力数：</td>
+                        <td colspan="2">{{PersonalinfoList.labourNum}}</td>
+                    </tr>
+                    <tr>
+                        <td class="listcolor">住宅电话：</td>
+                        <td>{{PersonalinfoList.homePhone}}</td>
+                        <td class="listcolor">移动电话：</td>
+                        <td colspan="2">{{PersonalinfoList.mobilePhone}}</td>
+                    </tr>
+                    <tr>
+                        <td class="listcolor">配偶姓名：</td>
+                        <td>{{PersonalinfoList.spouseName}}</td>
+                        <td class="listcolor">配偶身份证：</td>
+                        <td colspan="2">{{PersonalinfoList.spouseIDCardNO}}</td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td class="listcolor">户口所在地：</td>
+                        <td colspan="3">{{ PersonalinfoList.household }}</td>
+                        <td class="listcolor">被保险人：</td>
+                        <td colspan="7">{{ ( PersonalinfoList.loanApplInfo.isGuarantor ?  "是"  : "否") }}</td>
+                    </tr>
+                    <tr>
+                        <td class="listcolor">家庭住址1：</td>
+                        <td colspan="3"> {{PersonalinfoList.homeAddress1}} </td>
+                        <td class="listcolor">小组长：</td>
+                        <td colspan="7">{{  PersonalinfoList.loanApplInfo.isGroupLeader ?  "是" : "否"  }}</td>
+                    </tr>
+                    <tr>
+                        <td class="listcolor">家庭住址2：</td>
+                        <td colspan="3"> {{ PersonalinfoList.homeAddress2 }} </td>
+                        <td class="listcolor">是否被拒客户：</td>
+                        <td colspan="7">{{ PersonalinfoList.isblUser != "False" ?  "是" : "否" }}</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <!--贷款申请信息-->
+            <div>
+                <h5>贷款申请信息</h5>
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <td class="listcolor">仅为担保人：</td>
+                        <td>{{PersonalinfoList.loanApplInfo.isGuarantor?"是":"否" }}</td>
+                        <td class="listcolor">贷款产品：</td>
+                        <td>{{PersonalinfoList.loanApplInfo.loanProductID }}</td>
+                        <td class="listcolor">申请金额：</td>
+                        <td>{{PersonalinfoList.loanApplInfo.applLoanAmt }}</td>
+                        <td class="listcolor">贷款用途：</td>
+                        <td>{{PersonalinfoList.loanApplInfo.loanPurpose }}</td>
+
+                    </tr>
+                    <tr>
+                        <td class="listcolor">贷款详情用途：</td>
+                        <td colspan="7">
+                            {{PersonalinfoList.loanApplInfo.loanDetailPurpose }}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--贷款申请信息 and-->
+        </div>
+    </div>
+
+    <!-- 处理结果 -->
+    <div class="ibox">
+        <div class="ibox-title">
+            <h5>处理结果</h5>
+            <div nbox-tools clickName="getDeallist" isHide="false"></div>
+        </div>
+        <!-- 处理结果 列表 -->
+        <div class="ibox-content">
+            <table class="table table-hover ">
+                <thead>
+                <tr>
+                    <th width="10%">处理人</th>
+                    <th width="10%">处理阶段</th>
+                    <th width="15%">处理结果</th>
+                    <th width="15%">联系电话</th>
+                    <th>处理意见</th>
+                    <th width="15%" class="text-center">处理时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in dealInfoCollection">
+                    <td class="project-status">
+                        {{ item.dealUserName}}
+                    </td>
+                    <td class="project-title">
+                        {{ item.dealPhase }}
+                    </td>
+                    <td>
+                        {{item.dealResult}}
+                    </td>
+                    <td>
+                        {{item.tel}}
+                    </td>
+                    <td>
+                        {{item.dealOpinion}}
+                    </td>
+                    <td class="text-center">
+                        {{item.dealTime}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- 处理结果 end -->
+    </div>
+    <!--历史记录-->
+    <div class="ibox">
+        <div class="ibox-title">
+            <h5>历史贷款记录</h5>
+            <div nbox-tools clickName="History" isHide="true"></div>
+        </div>
+        <div class="ibox-content">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th class="sorting_desc">分支名称</th>
+                    <th class="sorting_desc">中心名称</th>
+                    <th class="sorting_desc">客户姓名</th>
+                    <th class="sorting_desc">贷款金额</th>
+                    <th class="sorting_desc">还款日期</th>
+                    <th class="sorting_desc">贷款状态</th>
+                    <th class="sorting_desc">贷款产品</th>
+                    <th class="sorting_desc">贷款类型</th>
+                    <th class="sorting_desc">小组编号</th>
+                    <th class="sorting_desc">申请编号</th>
+                    <th class="sorting_desc">是否注销过</th>
+                    <th class="sorting_desc">是否提前还款</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="gradeA odd" ng-repeat="item in historyList">
+                    <td>{{ item.branchName }}</td>
+                    <td>{{ item.centerName }}</td>
+                    <td>{{ item.customerName }}</td>
+                    <td>{{ item.loanAmt }}</td>
+                    <td>{{ item.disDate }}</td>
+                    <td>{{ item.loanStatus }}</td>
+                    <td>{{ item.loanProduct }}</td>
+                    <td>{{ item.loanType }}</td>
+                    <td>{{ item.groupId }}</td>
+                    <td>{{ item.loanId }}</td>
+                    <td>{{ item.isCancel }}</td>
+                    <td>{{ item.isAhead }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-md-6">
+                    显示 <select data-ng-model="numPerPage"
+                               data-ng-options="num for num in numPerPageOpt"
+                               data-ng-change="onNumPerPageChange()">
+                </select> 条
+                    <span>总条数: {{totalCount}}</span>
+                </div>
+                <div class="col-md-6 text-right">
+                    <pagination class="pagination-sm" ng-model="currentPage" total-items="totalCount"
+                                max-size="6"
+                                ng-change="select(currentPage)" items-per-page="numPerPage"></pagination>
+                </div>
+            </div>
+        </div>
+        <!--历史记录 and-->
+    </div>
+    <!-- iboxlist start-->
+    <div class="ibox">
+        <div class="ibox-title">
+            <h5>照片列表</h5>
+
+            <div nbox-tools clickName="getimgList" isHide="true"></div>
+        </div>
+        <div class="ibox-content">
+            <!-- 图片列表 -->
+            <tabset>
+                <tab heading="电脑上传照片">
+                    <div class="row">
+                        <div class="text-center" ng-show="imglist.pcimglist.length < 1"> 未查询到该组的图片</div>
+                        <div class="col-md-2" ng-repeat="item in imglist.pcimglist">
+                            <div class="file_img">
+                                <a href="{{ item.url }}" data-gallery="img_pc">
+                                    <div class="image">
+                                        <img ng-src="{{ item.url }}" class="img-responsive" alt="image">
+                                    </div>
+                                </a>
+
+                                    <div class="file-name">
+                                        <a href="{{ item.url }}"  >
+                                        {{ item.photoName }}
+                                        </a>
+                                        <span class="maplink" ng-show="item.photoType == 1"  ng-click="openMod(item.latitude,item.longitude,item.originPhotoName,item.shootingTime)"   > <!-- -->
+                               <i class="fa fa-map-marker"></i> 地理位置
+                           </span>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="手机上传照片">
+                    <div class="row">
+                        <div class="text-center" ng-show="imglist.phoneimglist.length < 1"> 未查询到该组的图片</div>
+                        <div class="col-md-2" ng-repeat="item in imglist.phoneimglist">
+                            <!--<div class="file-box" >-->
+                            <div class="file_img">
+                                <a href="{{ item.url }}" data-gallery="img_tel">
+                                    <div class="image">
+                                        <img ng-src="{{ item.smartUrl }}" class="img-responsive" alt="image">
+                                    </div>
+                                </a>
+                                    <div class="file-name">
+                                        <a href="{{ item.url }}"  >
+                                        {{ item.photoName }}
+                                        </a>
+                                           <span class="maplink" ng-show="item.photoType == 1"   ng-click="openMod(item.latitude,item.longitude,item.originPhotoName,item.shootingTime)"  > <!--     -->
+                              <i class="fa fa-map-marker"></i> 地理位置
+                           </span>
+                                    </div>
+
+                            </div>
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </tab>
+            </tabset>
+            <!-- 图片列表 end -->
+        </div>
+    </div>
+
+    <!-- 征信报告 -->
+    <div class="ibox">
+        <div class="ibox-title">
+            <h5>征信报告列表</h5>
+
+            <div nbox-tools clickName="getCreditreportList" isHide="true"></div>
+        </div>
+        <!-- 报告列表 -->
+        <div class="ibox-content">
+            <table class="table table-hover ">
+                <thead>
+                <tr>
+                    <th>身份</th>
+                    <th>姓名</th>
+                    <th>查询时间</th>
+                    <th width="5%" class="text-center">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in creditReports">
+                    <td class="project-status">
+                        {{ item.customerRank}}
+                    </td>
+                    <td class="project-title">
+                        {{ item.customerName }}
+                    </td>
+                    <td>
+                        <small> {{item.queryDateTime}}</small>
+                    </td>
+                    <td class="text-center">
+                                        <span ng-click="open(item.url)" class="btn btn-white btn-xs">
+                                        <i class="fa fa-folder"></i> 查看
+                                    </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- 报告 end -->
+    </div>
+
+    <!-- 通话记录  -->
+    <div class="ibox">
+        <div class="ibox-title">
+            <h5>电话回访列表</h5>
+
+            <div nbox-tools clickName="phonerecordsInit" isHide="true"></div>
+        </div>
+        <div class="ibox-content">
+            <table datatable="ng" class="table table-hover">
+                <thead>
+                <tr>
+                    <th>服务号</th>
+                    <th>座席电话</th>
+                    <th>员工编号</th>
+                    <th>小组编号</th>
+                    <th>受理编号</th>
+                    <th>客户编号</th>
+                    <th>客户类型</th>
+                    <th>客户姓名</th>
+                    <th>拨打时间</th>
+                    <th>通话时长</th>
+                    <th>客户电话</th>
+                    <th width="5%" class="text-center">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in phonerecords.groupPhoneChecks track by $index">
+                    <td>{{ item.serviceNum }}</td>
+                    <td>{{ item.servicePhone }}</td>
+                    <td>{{ item.employeeId }}</td>
+                    <td>{{ item.groupId }}</td>
+                    <td>{{ item.applyNo }}</td>
+                    <td>{{ item.customerId }}</td>
+                    <td>{{ item.customerType }}</td>
+                    <td>{{ item.customerName }}</td>
+                    <td>{{ item.callTime }}</td>
+                    <td>{{ item.takeTime }}</td>
+                    <td>{{ item.customerPhone }}</td>
+                    <td class="text-center">
+                        <a ng-show="item.url" href="{{item.url}}" class="btn btn-white btn-xs">
+                            <i class="icon_palyer"></i> 录音</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- 通话记录 分页 -->
+            <div class="row">
+                <div class="col-md-6">
+                    显示 <select data-ng-model="phonerecords.numPerPage"
+                               data-ng-options="num for num in phonerecords.numPerPageOpt"
+                               data-ng-change="phonerecords.onNumPerPageChange()">
+                </select> 条
+                    <span>总条数: {{phonerecords.totalCount}}</span>
+                </div>
+                <div class="col-md-6 text-right">
+                    <pagination class="pagination-sm" ng-model="phonerecords.currentPage"
+                                total-items="phonerecords.totalCount"
+                                max-size="6"
+                                ng-change="phonerecords.select(phonerecords.currentPage)"
+                                items-per-page="phonerecords.numPerPage"></pagination>
+                </div>
+            </div>
+
+        </div>
+        <!-- 通话记录 boxcontent  end -->
+    </div>
+    <!-- iboxlist end-->
+
+
+</div>
+<!-- audio player-->
+<a class="hide" href="null.aac"> Audio player </a>
+<!-- audio player end -->
+<script type="text/javascript">
+    soundManager.onready(function () {
+        // soundManager.createSound() etc. may now be called
+        inlinePlayer = new InlinePlayer();
+    });
+</script>
+<ng-include src="'views/approve.html'"></ng-include>
