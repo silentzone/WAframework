@@ -5,14 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Page title set in pageTitle directive -->
     <title page-title></title>
-    <link href="resource/css/all.css" rel="stylesheet">
+    <link href="src/css/all.css" rel="stylesheet">
 </head>
 <!-- ControllerAs syntax -->
 <!-- Main controller with serveral data used in Inspinia theme on diferent view -->
-<body ng-controller="MainCtrl as main">
+<body ng-controller="MainCtrl as main" > <!--   -->
 <!-- Main view     -->
 <div ui-view></div>
-<script src="resource/js/param.js"></script>
-<script data-main="resource/js/require_config" src="resource/lib/require.js"></script>
+<script src="src/js/angular/angular.js"></script>
+<script src="src/js/bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script> 
+<script src="src/js/jquery/jquery-2.1.1.min.js"></script>
+<!-- cdn --> 
+<script src="src/js/ui-router/angular-ui-router.min.js"></script> 
+<script src="src/js/plugins/oclazyload/dist/ocLazyLoad.js"></script>  
+<!-- webpack -->
+<script src="dist/src/js/app/main.js"></script>
+
 </body>
 </html>

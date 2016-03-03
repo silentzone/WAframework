@@ -1,4 +1,5 @@
-define(["angular","jquery","creditinfobundles/creditinfobundles.register"], function (angular,$) {
+// define(["angular","jquery","creditinfobundles/creditinfobundles.register"], function (angular,$) {
+
 
 
 /**
@@ -10,8 +11,8 @@ define(["angular","jquery","creditinfobundles/creditinfobundles.register"], func
             templateSrc: 'views/templates/branch-basic.html'
         });
  */
-function sliderbox(sliderControl) {
-    console.log(sliderControl);
+// require("sliderControl"); 
+module.exports = function sliderbox(sliderControl) { 
     return {
         restrict: 'EA',
         transclude: true,
@@ -113,4 +114,4 @@ function sliderbox(sliderControl) {
 // creditinfobundles.directive('sliderbox', sliderbox)
     
     
-});
+// });

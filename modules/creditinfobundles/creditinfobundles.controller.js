@@ -1,14 +1,17 @@
-define(["angular","creditinfobundles/creditinfobundles.register" ,"mock.angular"], function (angular) {  // "mock.angular" mock angular 数据模拟器 
-'use strict';
-  var creditinfobundles = angular.module('creditinfobundles');
-  var Mock = require("mock.angular");
-   // mock
-  Mock.mockjax(creditinfobundles);
-
-  creditinfobundles.controller('creditinfobundles', ['$scope','$filter', '$location', '$http' ,  'httpRequest', 'logger', 'sliderControl', // '$stateParams',  'Authentication', 'Articles',
-      function($scope, $filter, $location, $http ,httpRequest, logger, sliderControl) {
+// define(["angular","creditinfobundles/creditinfobundles.register" ,"mock.angular"], function (angular) {  // "mock.angular" mock angular 数据模拟器 
+// 'use strict';
+//   var creditinfobundles = angular.module('creditinfobundles');
+//   var Mock = require("mock.angular");
+//    // mock
+//   Mock.mockjax(creditinfobundles);
 
 
+// 单元测试 
+//  1 函数依赖是否都传入 
+//  2 内容逻辑 
+
+
+var controller = function($scope, $filter, $location, $http ,httpRequest, logger, sliderControl) { 
         //modal
         $scope.open = function () {
             sliderControl.toggle({
@@ -163,10 +166,15 @@ define(["angular","creditinfobundles/creditinfobundles.register" ,"mock.angular"
                 }
         }
 
-    }
-  ]);
+}
+
+module.exports = controller;
+
+  // creditinfobundles.controller('creditinfobundles', ['$scope','$filter', '$location', '$http' ,  'httpRequest', 'logger', 'sliderControl', // '$stateParams',  'Authentication', 'Articles',
+     
+  // ]);
 
 
 
 
-});
+// });

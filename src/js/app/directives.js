@@ -1,5 +1,5 @@
-define(["app/init", "jquery"], function (angular,$) {
-  
+var app = require("config").baseModule; 
+// webpack 中需要加载 jquery 
 function icheck($timeout) { 
     return {
         restrict: 'A', 
@@ -196,11 +196,7 @@ function sliderbox(sliderControl) {
  *
  * Pass all functions into module
  */
-angular
-    .module('MLP')  
-    .directive('icheck', ["$timeout",icheck])
+app.directive('icheck', ["$timeout",icheck])
     .directive('chosen', ["$timeout",chosen])
-    .directive('sliderbox',["sliderControl",sliderbox])
-    
-    
-});
+    .directive('sliderbox',["sliderControl",sliderbox]);
+ 
