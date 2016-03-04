@@ -42,17 +42,34 @@ module.exports = function (grunt) {
             }
         },
         // 监控文件改变
+        // watch: {
+        //     app: {
+        //         files: ["src/**/*", "modules/**/*", "dist/**/*", "index.html"],
+        //         tasks: ["webpack:build-dev"],
+        //         options: {
+        //             spawn: false,
+        //         }
+        //     },
+            
+        // },
         watch: {
-            app: {
-                files: ["src/**/*", "modules/creditinfobundles/**/*"],
-                tasks: ["webpack:build-dev"],
-                options: {
-                    spawn: false,
-                }
-            }
+            // all : {  // watch 分任务 导致 
+            	/*
+				Running "watch:all" (watch) task
+				Waiting...
+				Verifying property watch.all.files exists in config...ERROR
+				>> Unable to process task.
+            	*/
+                livereload: {
+                    options: {
+                        livereload: 35729
+                    },
+                    files: ["src/**/*", "modules/**/*", "dist/**/*", "index.html"],
+                    tasks: ["webpack:build-dev"]
+                } 
         },
-        // 服务
-       connect: {
+        // 服务 
+		 connect: {
             default: {
                 options: {
                     port: 9000,
@@ -64,27 +81,11 @@ module.exports = function (grunt) {
                 server: {
                     options: {
                         port: 9001,
-                        base: './build/'
-                    }
-                }
-            },
-            release: {
-                options: {
-                    port: 9000,
-                    open: true,
-                    livereload: 35729,
-                    // Change this to '0.0.0.0' to access the server from outside
-                    hostname: 'localhost'
-                },
-                server: {
-                    options: {
-                        port: 9004,
-                        base: './build/'
+                         base: './'
                     }
                 }
             }
-
-        },
+        } 
     });
 
 
@@ -109,8 +110,8 @@ module.exports = function (grunt) {
     // Advantage: No server required, can run app from filesystem
     // Disadvantage: Requests are not blocked until bundle is available,
     //               can serve an old app on too fast refresh
-    grunt.registerTask("dev",    ["webpack:build-dev", "watch:app"]);
-    grunt.registerTask('server', ['connect:default', 'dev' ]);
+    grunt.registerTask("dev",  ["webpack:build-dev","watch"]);
+    grunt.registerTask('server', ['connect',"webpack:build-dev","watch"]);
     // Production build
     grunt.registerTask("build", ["webpack:build"]);
 

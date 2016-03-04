@@ -1,7 +1,7 @@
 // 依赖 angular  
 // 依赖 index  route controll service app...
 require("angular");
-// require("app");
+require("./service");
 require("./controller");
 require("./directives");
 require("./route");

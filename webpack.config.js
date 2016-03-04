@@ -89,7 +89,8 @@ module.exports = {
     extensions: ['', '.js', '.json', '.html' ],
     alias : { 
        config : path.join(app_path,"/app/config"), 
-       ngModule : path.join(app_path,"/app/app.js")
+       ngModule : path.join(app_path,"/app/app.js"),
+       toastr :  path.join(app_path,"plugins/toastr/toastr.js")  
     }
   }
  // plugins: [commonsPlugin]

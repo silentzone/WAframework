@@ -12,6 +12,6 @@ var directive = require(module.name + ".directive");
  
 app.config(["$stateProvider", "$urlRouterProvider" , routes]); // , "$ocLazyLoadProvider"
 app.controller('creditinfobundles', ['$scope','$filter', '$location', '$http', 'httpRequest', 'logger', 'sliderControl',controller]) // .directive('directive', directive);
-
+ 
    
 //module.exports= mod;   "$stateProvider", "$urlRouterProvider" , "$ocLazyLoadProvider"  

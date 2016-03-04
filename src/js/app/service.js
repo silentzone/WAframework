@@ -1,10 +1,43 @@
 var app = require("config").baseModule; 
-// var _params = require(./param).hosts;
+var _params = require("./param").hosts; 
+ 
 app.service("sliderControl", [function () { 
     return {
         name : "sliderControl"
     };
 }])
+/**
+消息控件封装 
+*/
+.factory('logger', [ 
+            function () {
+                var logIt;
+                toastr.options = {
+                    "closeButton": true,
+                    "progressBar": true,
+                    "positionClass": "toast-bottom-right",
+                    "timeOut": "3200"
+                };
+                logIt = function (message, type) {
+                    return toastr[type](message);
+                };
+                return {
+                    logIt : logIt,
+                    logInfo: function (message) {
+                        logIt(message, 'info');
+                    },
+                    logWarning: function (message) {
+                        logIt(message, 'warning');
+                    },
+                    logSuccess: function (message) {
+                        logIt(message, 'success');
+                    },
+                    logError: function (message) {
+                        logIt(message, 'error');
+                    }
+                };
+            }
+ ])
 /**
  * 请求类   function request  (httpApi, msg)
  * msg      对象设置方式      { done:"自定义成功提示", erro : "自定义失败消息"  } // 如果不设置 erro 则弹出系统真实错误消息
